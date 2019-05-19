@@ -1,0 +1,21 @@
+{
+  "name": "rpm.io",
+  "version": "1.0.0",
+  "description": "Real-time polyglot microservice",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "luismiguel.mopa@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "uuid": "^3.3.2"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/luismoralesp/rpm.io"
+  }
+}
