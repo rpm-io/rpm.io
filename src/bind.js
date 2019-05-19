@@ -55,8 +55,7 @@ class Bind {
         return true;
     }
     
-    value_of(name){
-        let data = this.get_var(name)
+    value_of(data){
         if (data){
             return new String(data).toString()
         }
@@ -70,13 +69,16 @@ class Bind {
         }
     }
     
-    show(socket, data, __id__){
-        socket.emit("message", {
-            "data": data,
-            "type": this.type_of(this.get_var(data)),
-            "primitive": this.is_primitive(this.get_var(data)),
-            "value": this.value_of(data),
-            "__id__": __id__
+    show(socket, data, __id__) {
+        let value = this.get_var(data);
+        Promise.resolve(value).then(value => {
+            socket.emit("message", {
+                "data": data,
+                "type": this.type_of(value),
+                "primitive": this.is_primitive(value),
+                "value": this.value_of(value),
+                "__id__": __id__
+            })
         })
     }
     

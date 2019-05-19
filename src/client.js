@@ -7,6 +7,7 @@ class Client {
         this.listeners = {};
         this.ok = true;
         this.io = socket(uri);
+        this.time = 0;
     }
 
     start(){
@@ -48,7 +49,7 @@ class Client {
     }
 
     send(message){
-        message.__id__ = new Date().getTime();
+        message.__id__ = new Date().getTime() + '%' + (++this.time);
         this.messages.push(message);
         return this.wait(message.__id__);
     }
