@@ -1,35 +1,12 @@
 {
-  "_from": "rpm.io",
-  "_id": "rpm.io@1.0.2",
-  "_inBundle": false,
-  "_integrity": "sha512-CNNiBAQrZ29uNQfECzBvAQHeHQCNf8yeWg0m3NrPxIaugg9tYgR6YjrwvGEUIb7VorMzH6ZwJRN8IUsBgwkK1Q==",
-  "_location": "/rpm.io",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "rpm.io",
-    "name": "rpm.io",
-    "escapedName": "rpm.io",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
+  "name": "rpm.io",
+  "version": "1.0.3",
+  "description": "Real-time polyglot microservice",
+  "scripts": {
+    "test": "node test.js"
   },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/rpm.io/-/rpm.io-1.0.2.tgz",
-  "_shasum": "9e685c7c64174838fd3fc4e7e80658f247ebd258",
-  "_spec": "rpm.io",
-  "_where": "C:\\Users\\Acer\\Documents\\tosell\\hotel",
-  "author": {
-    "name": "luismiguel.mopa@gmail.com"
-  },
-  "bugs": {
-    "url": "https://github.com/luismoralesp/rpm.io/issues"
-  },
-  "bundleDependencies": false,
+  "author": "luismiguel.mopa@gmail.com",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.0",
@@ -37,17 +14,8 @@
     "socket.io-client": "^2.2.0",
     "uuid": "^3.3.2"
   },
-  "deprecated": false,
-  "description": "Real-time polyglot microservice",
-  "homepage": "https://github.com/luismoralesp/rpm.io#readme",
-  "license": "ISC",
-  "name": "rpm.io",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luismoralesp/rpm.io.git"
-  },
-  "scripts": {
-    "test": "node test.js"
-  },
-  "version": "1.0.2"
+    "type" : "git",
+    "url" : "https://github.com/luismoralesp/rpm.io"
+  }
 }
