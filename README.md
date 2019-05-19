@@ -16,7 +16,7 @@ Easy to use:
 
 ### Server
 ```javascript
-let rpm = require('./rpm');
+let rpm = require('rpm');
 
 let exported = rpm.exports({
     "attr1": "value1"
@@ -26,7 +26,7 @@ let exported = rpm.exports({
 ### Client
 
 ```javascript
-let rpm = require('./rpm');
+let rpm = require('rpm');
 
 rpm.require_remote('http://localhost:8000')
 .then(async (remote) => {
@@ -47,7 +47,7 @@ class MyClass:
 
 ### Javascript
 ```javascript
-let rpm = require('./rpm')
+let rpm = require('rpm')
 
 rpm.require_python('myclass')
 .then(async (myclass) => {
