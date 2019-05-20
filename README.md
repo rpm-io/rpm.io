@@ -26,7 +26,7 @@ let exported = rpm.exports({
 ### Client
 
 ```javascript
-let rpm = require('rpm');
+let rpm = require('rpm.io/rpm');
 
 rpm.require_remote('http://localhost:8000')
 .then(async (remote) => {
@@ -47,7 +47,7 @@ class MyClass:
 
 ### Javascript
 ```javascript
-let rpm = require('rpm')
+let rpm = require('rpm.io/rpm')
 
 rpm.require_python('myclass')
 .then(async (myclass) => {

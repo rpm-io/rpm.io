@@ -1,0 +1,15 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="rpm-client.js"></script>
+<script>
+    require_remote('http://localhost:8000')
+    .then(async remote => {
+        const login = await remote.login;
+        const register = await remote.register;
+        for (let i = 0; i < 2000; i++){
+            register.call('luismiguel.mopa@gmail.com', '123456', '5ce1fd96bb3c983334fc4c3f')
+            .then(async (user) => {
+                console.log(i, await login.call('luismiguel.mopa@gmail.com', '123456'))
+            })
+        }
+    })
+</script>
