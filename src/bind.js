@@ -1,22 +1,12 @@
 let socket = require('./socket');
 const uuidv1 = require('uuid/v1');
+const { watch } = require('watchjs');
 
 class Bind {
     
     constructor(modules){
         this.__VARIABLES__ = { "END": "END" };
-        this.__LISTENERS__ = {};
-        this.modules = new Proxy(modules, {
-            set: (self, name, value) => {
-                self[name] = value;
-                if (name in this.__LISTENERS__) {
-                    for (let listen of this.__LISTENERS__[name]) {
-                        this.show(listen.socket, name, value, listen.__id__, "listener")
-                    }
-                }
-                return true;
-            }
-        });
+        this.modules = modules;
     }
     
     declare(value, path) {
@@ -38,10 +28,9 @@ class Bind {
     }
 
     subscribe(socket, name, __id__) {
-        if (!(name in this.__LISTENERS__)){
-            this.__LISTENERS__[name] = [];
-        }
-        this.__LISTENERS__[name].push({ socket, __id__ });
+        watch(this.modules, name, (prop, action, newvalue, oldvalue) => {
+            this.show(socket, name, newvalue, __id__);
+        })
         return name;
     }
     
@@ -115,15 +104,14 @@ class Bind {
         }
     }
 
-    show(socket, name, value, __id__, listener){
+    show(socket, name, value, __id__){
         Promise.resolve(value).then(value => {
             socket.emit("message", {
                 "data": name,
                 "type": this.type_of(value),
                 "primitive": this.is_primitive(value),
                 "value": this.value_of(value),
-                "__id__": __id__,
-                listener
+                "__id__": __id__
             })
         })
     }
