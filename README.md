@@ -2,7 +2,6 @@
 
 Real-time polyglot microservice.
 
-[![NPM Version][npm-image]][npm-url]
 
 ## Instalation
 
@@ -16,21 +15,23 @@ Easy to use:
 
 ### Server
 ```javascript
-let rpm = require('rpm');
+let rpm = require('rpm.io');
 
 let exported = rpm.exports({
-    "attr1": "value1"
+    "attr1": "value1",
+    "method1": () => "value2"
 }, 8000)
 ```
 
 ### Client
 
 ```javascript
-let rpm = require('rpm.io/rpm');
+let rpm = require('rpm.io');
 
 rpm.require_remote('http://localhost:8000')
 .then(async (remote) => {
     await remote.attr1 //value1
+    await (await remote.method1).call() //value2
 })
 ```
 
@@ -47,7 +48,7 @@ class MyClass:
 
 ### Javascript
 ```javascript
-let rpm = require('rpm.io/rpm')
+let rpm = require('rpm.io')
 
 rpm.require_python('myclass')
 .then(async (myclass) => {

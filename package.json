@@ -1,6 +1,6 @@
 {
   "name": "rpm.io",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "Real-time polyglot microservice",
   "scripts": {
     "test": "node test.js"
@@ -14,6 +14,21 @@
     "socket.io-client": "^2.2.0",
     "uuid": "^3.3.2"
   },
+  "keywords": [
+    "promise",
+    "async",
+    "microservice",
+    "client",
+    "rpm.io",
+    "rpm",
+    "rpm.io-client",
+    "rpm-client",
+    "request",
+    "realtime",
+    "python",
+    "poliglot",
+    "graph"
+  ],
   "repository": {
     "type" : "git",
     "url" : "https://github.com/luismoralesp/rpm.io"
