@@ -36,13 +36,17 @@ class Bind {
     
     get_var(name) {
         if (name){
-            return this.__VARIABLES__[name].value
+            if (name in this.__VARIABLES__){
+                return this.__VARIABLES__[name].value
+            }
         }
     }
 
     get_path(name) {
         if (name){
-            return this.__VARIABLES__[name].path
+            if (name in this.__VARIABLES__){
+                return this.__VARIABLES__[name].path
+            }
         }
     }
     
