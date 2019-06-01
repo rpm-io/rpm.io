@@ -104,7 +104,7 @@ class Bind {
     
     type_of(data) {
         if (data){
-            return typeof data;
+            return Array.isArray(data)?'array': typeof data;
         }
     }
 
@@ -150,6 +150,26 @@ class Bind {
                             attr = attr.bind(variable);
                         }
                         this.show_var(socket, this.declare(attr, `${path}/${name}`), __id__)
+                    }else{
+                        this.show_var(socket, null, __id__)
+                    }
+                }
+            }else
+            if (COMMAND == 'get'){
+                
+                let variable = this.var_from('var')
+                let path = this.path_from('var')
+                let index = this.val_from('index')
+                console.log(variable, index, variable.length)
+                    
+                if (variable && index >= 0){
+                    if (index < variable.length){
+                        let attr = variable[new Number(index)];
+                        console.log(attr, index)
+                        if (attr instanceof Function) {
+                            attr = attr.bind(variable);
+                        }
+                        this.show_var(socket, this.declare(attr, `${path}/${index}`), __id__)
                     }else{
                         this.show_var(socket, null, __id__)
                     }

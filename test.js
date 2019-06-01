@@ -2,7 +2,13 @@ let rpm = require('./rpm');
 
 //Create a simple class
 class A {
-    constructor () { this.attr1 = "hello"; }
+    constructor () { 
+        this.attr1 = "hello"; 
+        this.attr2 = [
+            { attr1: this.attr1 },
+            "attr2"
+        ]
+    }
     setAttr1 (attr1) { this.attr1 = attr1; }
     getAttr1 () { return this.attr1; }
 }
