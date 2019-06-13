@@ -6,7 +6,7 @@ Real-time polyglot microservice.
 
 Install using npm:
 ```
-$ npm install --save rpm.io-client
+$ npm install --save rpm.io
 ```
 ## Basic Use
 
