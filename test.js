@@ -8,6 +8,18 @@ class A {
             { attr1: this.attr1 },
             "attr2"
         ]
+        this.attr3 = {
+            hhh:{
+                rrr:3,
+                a: this.attr3
+            }
+        }
+    }
+
+    getObject(){
+        return {
+            ddd:111
+        }
     }
     setAttr1 (attr1) { this.attr1 = attr1; }
     getAttr1 () { return this.attr1; }
@@ -28,7 +40,7 @@ rpm.require_python('os')
 
     //close conection
     console.log("Server: close conections")
-    exported.close()
+    //exported.close()
 }).catch(err => {
     console.log(err)
 })

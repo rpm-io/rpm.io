@@ -95,7 +95,13 @@ class Bind {
     }
     
     value_of(data){
-        if (data){
+        if (data) {
+            try {
+                if (data instanceof Object){
+                    return JSON.stringify(data)
+                }
+            } catch(e){}
+            
             return new String(data).toString()
         }
         return data
