@@ -6,7 +6,7 @@ class Spawn {
         this.messages = [];
         this.listeners = {};
         this.ok = true;
-        this.cmd = child_process.spawn(exec, params);
+        this.cmd = child_process.spawn(exec, params, { cwd: process.cwd(), checkCWD: true });
     }
 
     start(){

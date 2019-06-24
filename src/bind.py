@@ -2,6 +2,9 @@ import sys
 import uuid
 import json
 from importlib import import_module
+import os
+
+sys.path.append(os.getcwd())
 
 class Bind:
 

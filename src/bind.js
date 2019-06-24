@@ -79,7 +79,15 @@ class Bind {
 
     }
     
-    call(method, params){
+    call(socket, method, params){
+        params = params.map(param => {
+            if (param.__callback__){
+                return (...params) =>  {
+                    this.show(socket, 'callback', params, param.__id__)
+                };
+            }
+            return param
+        })
         return method(...params)
     }
     
@@ -139,74 +147,74 @@ class Bind {
                 this.show_var(socket, this.declare(this.modules, "HOME"), "__self__")
             },
             (socket, message) => {
-            this.message = message;
+                this.message = message;
 
-            let COMMAND = this.val_from('com')
-            let __id__ = this.val_from('__id__')
-            
-            if (COMMAND == 'attr'){
+                let COMMAND = this.val_from('com')
+                let __id__ = this.val_from('__id__')
                 
-                let variable = this.var_from('var')
-                let path = this.path_from('var')
-                let name = this.val_from('attr')
-                if (variable && name){
-                    if (name in variable){
-                        let attr = variable[name];
-                        if (attr instanceof Function) {
-                            attr = attr.bind(variable);
-                        }
-                        this.show_var(socket, this.declare(attr, `${path}/${name}`), __id__)
-                    }else{
-                        this.show_var(socket, null, __id__)
-                    }
-                }
-            }else
-            if (COMMAND == 'get'){
-                
-                let variable = this.var_from('var')
-                let path = this.path_from('var')
-                let index = this.val_from('index')
-                console.log(variable, index, variable.length)
+                if (COMMAND == 'attr'){
                     
-                if (variable && index >= 0){
-                    if (index < variable.length){
-                        let attr = variable[new Number(index)];
-                        console.log(attr, index)
-                        if (attr instanceof Function) {
-                            attr = attr.bind(variable);
+                    let variable = this.var_from('var')
+                    let path = this.path_from('var')
+                    let name = this.val_from('attr')
+                    if (variable && name){
+                        if (name in variable){
+                            let attr = variable[name];
+                            if (attr instanceof Function) {
+                                attr = attr.bind(variable);
+                            }
+                            this.show_var(socket, this.declare(attr, `${path}/${name}`), __id__)
+                        }else{
+                            this.show_var(socket, null, __id__)
                         }
-                        this.show_var(socket, this.declare(attr, `${path}/${index}`), __id__)
-                    }else{
-                        this.show_var(socket, null, __id__)
                     }
+                }else
+                if (COMMAND == 'get'){
+                    
+                    let variable = this.var_from('var')
+                    let path = this.path_from('var')
+                    let index = this.val_from('index')
+                        
+                    if (variable && index >= 0){
+                        if (index < variable.length){
+                            let attr = variable[new Number(index)];
+                            console.log(attr, index)
+                            if (attr instanceof Function) {
+                                attr = attr.bind(variable);
+                            }
+                            this.show_var(socket, this.declare(attr, `${path}/${index}`), __id__)
+                        }else{
+                            this.show_var(socket, null, __id__)
+                        }
+                    }
+                }else
+                if (COMMAND == 'new'){
+                    let clazz = this.var_from('var')
+                    let params = this.val_from('params')
+                    let instance = this.init(clazz, params)
+                    this.show_var(socket, this.declare(instance), __id__)
+                }else
+                if (COMMAND == 'str'){
+                    this.show_var(socket, this.var_from('var'), __id__)
+                }else
+                if (COMMAND == 'call'){
+                    let method = this.var_from('var')
+                    let params = this.val_from('params')
+                    let result = this.call(socket, method, params)
+                    this.show_var(socket, this.declare(result), __id__) 
+                }else
+                if (COMMAND == 'describe'){
+                    this.show_var(socket, this.var_from('var').__dict__, __id__)
+                }else
+                if (COMMAND == 'subscribe'){
+                    this.subscribe_from(socket, 'var', __id__)
+                }else
+                if (COMMAND == 'destroy'){
+                    this.show_var(socket, "END", __id__)
+                    socket.disconnect();
                 }
-            }else
-            if (COMMAND == 'new'){
-                let clazz = this.var_from('var')
-                let params = this.val_from('params')
-                let instance = this.init(clazz, params)
-                this.show_var(socket, this.declare(instance), __id__)
-            }else
-            if (COMMAND == 'str'){
-                this.show_var(socket, this.var_from('var'), __id__)
-            }else
-            if (COMMAND == 'call'){
-                let method = this.var_from('var')
-                let params = this.val_from('params')
-                let result = this.call(method, params)
-                this.show_var(socket, this.declare(result), __id__) 
-            }else
-            if (COMMAND == 'describe'){
-                this.show_var(socket, this.var_from('var').__dict__, __id__)
-            }else
-            if (COMMAND == 'subscribe'){
-                this.subscribe_from(socket, 'var', __id__)
-            }else
-            if (COMMAND == 'destroy'){
-                this.show_var(socket, "END", __id__)
-                socket.disconnect();
             }
-        });
+        );
         return this;
     }
 

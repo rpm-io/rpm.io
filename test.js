@@ -22,7 +22,11 @@ class A {
         }
     }
     setAttr1 (attr1) { this.attr1 = attr1; }
-    getAttr1 () { return this.attr1; }
+    getAttr1 () { console.log("erere"); return this.attr1; }
+
+    callbackable(cb){
+        cb("hello callback", "main")
+    }
 }
 
 //create a simple instance
