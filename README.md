@@ -18,14 +18,14 @@ Easy to use:
 let rpm = require('rpm.io');
 
 let exported = rpm.exports({
-    "attr1": "value1"
+    "attr1": "value1",
     "so":{
         "long":{
             "path":{
                 "value": "XD"
             }
         }
-    }
+    },
     "method1": () => "value2"
 }, 8000)
 ```
@@ -42,7 +42,7 @@ rpm.require_remote('http://localhost:8000')
     await remote.so.long.path.value.__value__ //XD
 })
 ```
-For know more about `rpm.io-client` click [here](https://www.npmjs.com/package/rpm.io-client)
+For know more about `rpm.io` click [here](https://www.npmjs.com/package/rpm.io)
 
 ## Object value
 
@@ -129,7 +129,7 @@ rpm.require_remote('http://localhost:8000')
 
     let instance = await remote.MyClass.__call__() 
     await instance.attr1.__value__ //value3
-    
+
 })
 ```
 
@@ -175,4 +175,34 @@ rpm.require_remote('http://localhost:8000')
     3
     4
     5
+```
+
+
+## Callbacks
+Now you can send a method by parameter to be able use as callback function
+
+### Server
+```javascript
+let rpm = require('rpm.io');
+
+let exported = rpm.exports({
+    method(callback){
+        //do something
+        callback("some value")
+        //do someting else
+    }
+}, 8000)
+```
+
+### Client
+
+```javascript
+let rpm = require('rpm.io-client');
+
+rpm.require_remote('http://localhost:8000')
+.then(async (remote) => {
+    remote.method.__call__( (value) => {
+        console.log(value)//some value
+    })
+})
 ```
