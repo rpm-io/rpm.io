@@ -8,6 +8,7 @@ class Bind {
     constructor(modules){
         this.__VARIABLES__ = { "END": "END" };
         this.modules = modules;
+        this.socket = new Socket()
     }
     
     declare(value, path) {
@@ -125,7 +126,7 @@ class Bind {
 
     show(socket, name, value, __id__){
         Promise.resolve(value).then(value => {
-            this.socket.emit("message", {
+            socket.emit("message", {
                 "data": name,
                 "type": this.type_of(value),
                 "primitive": this.is_primitive(value),
@@ -137,12 +138,11 @@ class Bind {
     
     show_var(socket, name, __id__) {
         let value = this.get_var(name);
-        this.show(this.socket, name, value, __id__)
+        this.show(socket, name, value, __id__)
     }
     
     run(port){
         
-        this.socket = new Socket()
         this.socket.start(
             port,
             (socket) => {
