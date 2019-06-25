@@ -1,6 +1,6 @@
 {
   "name": "rpm.io",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Real-time polyglot microservice",
   "scripts": {
     "test": "node test.js"
