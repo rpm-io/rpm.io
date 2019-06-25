@@ -48,3 +48,6 @@ rpm.require_python('os')
 }).catch(err => {
     console.log(err)
 })
+
+rpm.exports(a, 8001)
+rpm.exports(a, 8002)

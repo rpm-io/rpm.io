@@ -1,6 +1,7 @@
-let socket = require('./socket');
+let Socket = require('./socket');
 const uuidv1 = require('uuid/v1');
 const { watch } = require('watchjs');
+
 
 class Bind {
     
@@ -124,7 +125,7 @@ class Bind {
 
     show(socket, name, value, __id__){
         Promise.resolve(value).then(value => {
-            socket.emit("message", {
+            this.socket.emit("message", {
                 "data": name,
                 "type": this.type_of(value),
                 "primitive": this.is_primitive(value),
@@ -136,12 +137,13 @@ class Bind {
     
     show_var(socket, name, __id__) {
         let value = this.get_var(name);
-        this.show(socket, name, value, __id__)
+        this.show(this.socket, name, value, __id__)
     }
     
     run(port){
         
-        socket.start(
+        this.socket = new Socket()
+        this.socket.start(
             port,
             (socket) => {
                 this.show_var(socket, this.declare(this.modules, "HOME"), "__self__")
@@ -219,7 +221,7 @@ class Bind {
     }
 
     close(){
-        socket.close()
+        this.socket.close()
     }
 }
 
