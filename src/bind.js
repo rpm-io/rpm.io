@@ -77,8 +77,7 @@ class Bind {
     }
     
     init(clazz, params){
-        return clazz(...params)
-
+        return new clazz(...params)
     }
     
     call(socket, method, params){

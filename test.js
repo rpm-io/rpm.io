@@ -50,4 +50,7 @@ rpm.require_python('os')
 })
 
 rpm.exports(a, 8001)
-rpm.exports(a, 8002)
+rpm.exports({
+    a: () => 0,
+    A
+}, 8002)
